@@ -22,6 +22,7 @@ public class JoueurMonopoly {
 	private boolean OnPrison=false;
 	private ArrayList<Carte> carte=new ArrayList<>();
 	
+	
 	public JoueurMonopoly(String nom) {
 		this.nom=nom;
 		this.Argent=1500;
