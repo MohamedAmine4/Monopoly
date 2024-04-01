@@ -15,5 +15,4 @@ public class MainJouer {
 //	    System.out.println(c.getCarteChance());
 		Plateau r =new Plateau();
 	}
-
 }

@@ -22,12 +22,13 @@ public class JoueurMonopoly {
 	private Scanner scanner =new Scanner(System.in);
 	public JoueurMonopoly(String nom) {
 		this.nom=nom;
-		this.Argent=1000;
+		this.Argent=200;
 	}
 
     public void AjouterPropriter(Case c , JoueurMonopoly j) {
     
     	if(c instanceof ProprieterPublic) {
+    	if(j.getArgent()>=((ProprieterPublic) c).getPrix()) {
     		System.out.println("voulez vous Acheter cette Proprieter ? Avec un montant de "+((ProprieterPublic) c).getPrix()+" £ (Oui or Non)");
  		   String res=scanner.nextLine().toLowerCase();
 		if(res.equals("oui")) {
@@ -39,8 +40,11 @@ public class JoueurMonopoly {
     	    }
 		else 
 			System.out.println(j.getNom() + " n'a pas  acheté " + ((ProprieterPublic) c).getNom());
+    	}else 
+			System.out.println("Vous pouvez pas l'acheter "+j.getNom() + " n'a pas  acheté " + ((ProprieterPublic) c).getNom()+" qui a pour prix "+((ProprieterPublic) c).getPrix());
     	}
     	else if(c instanceof Terrain) {
+    		if(j.getArgent()>=((Terrain) c).getPrix()) {
     		System.out.println("voulez vous Acheter cette Proprieter ? Avec un montant de "+((Terrain) c).getPrix()+" £ (Oui or Non)");
  		   String res=scanner.nextLine().toLowerCase();
     		if(res.equals("oui")) {
@@ -52,6 +56,8 @@ public class JoueurMonopoly {
         	    }
     		else 
     			System.out.println(j.getNom() + " n'a pas  acheté " + ((Terrain) c).getNom());
+    		}else 
+    			System.out.println("Vous pouvez pas l'acheter "+j.getNom() + " n'a pas  acheté " + ((Terrain) c).getNom()+" qui a pour prix "+((Terrain) c).getPrix());
     	}
 		
     }
@@ -137,13 +143,27 @@ public void ajouterArgent(int r) {
 	        nbToursEnPrison++;
 	    }
 
+	public int getNbToursEnPrison() {
+		return nbToursEnPrison;
+	}
+
+	public void setNbToursEnPrison(int nbToursEnPrison) {
+		this.nbToursEnPrison = nbToursEnPrison;
+	}
+
 	@Override
 	public String toString() {
-		return "JoueurMonopoly [nom=" + nom + ", position=" + position + ", Argent=" + Argent + ", terrain=" + terrain
+		return "JoueurMonopoly [nom=" + nom + ", position=" + position + ", Argent=" + Argent + ", terrain=" +terrain
 				+ ", propriterPublic=" + propriterPublic + ", OnPrison=" + OnPrison + ", carte=" + carte
 				+ ", nbToursEnPrison=" + nbToursEnPrison + "]";
 	}
 	
+	public String Afficher() {
+			return "nom=" + nom + " position=" + position + " Argent=" + Argent + "\n ********terrains******** \n" +terrain
+					+ "******** \n propriterPublic******** \n" + propriterPublic + "\n ********\n OnPrison=" + OnPrison
+					+ "\n nbToursEnPrison=" + nbToursEnPrison+"\n ********";
+		
+	}
 	
 	
 	

@@ -72,5 +72,8 @@ public String tirerCarte() {
 		return "Carte [carteChance=" + carteChance + ", Communaute=" + Communaute + "]";
 	}
 
+	public String Affiche() {
+		return "carteChance=" + carteChance + "\nCommunaute=" + Communaute ;
+	}
 	
 }

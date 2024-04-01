@@ -5,6 +5,7 @@ import plateau.Case;
 
 public class Terrain  extends Case{
 	private int prix;
+	private String nom;
 	private int loyer;
 	private int nbmaison;//nombre de maison dans le terrain
 	private int nbHotel;
@@ -14,6 +15,7 @@ public class Terrain  extends Case{
 	private JoueurMonopoly propritaire;
 	public Terrain(String nom,int prix,int loyer,int prixMaison,int prixHotel,String couleur) {
 		super(nom);
+		this.nom=nom;
 		this.prix=prix;
 		this.loyer=loyer;
 		this.prixMaison=prixMaison;
@@ -24,6 +26,10 @@ public class Terrain  extends Case{
 	
 	public int getPrix() {
 		return prix;
+	}
+
+	public String getNom() {
+		return nom;
 	}
 
 	public void setPrix(int prix) {
@@ -75,10 +81,8 @@ public class Terrain  extends Case{
 
 	@Override
 	public String toString() {
-		return "Terrain [prix=" + prix + ", loyer=" + loyer + ", nbmaison=" + nbmaison + ", nbHotel=" + nbHotel
-				+ ", prixMaison=" + prixMaison + ", prixHotel=" + prixHotel + ", couleur=" + couleur + ", propritaire="
-				+ propritaire + "]";
+		return "nom : "+nom +" nbmaison=" + nbmaison + ", nbHotel=" + nbHotel
+			+" \n";
 	}
 	
-
 }

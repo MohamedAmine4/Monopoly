@@ -7,15 +7,17 @@ public class ProprieterPublic extends Case{
     private JoueurMonopoly proprietaire;
     private int prix;
     private int loyer;
-    
+    private String nom;
     public ProprieterPublic(String nom, int prix, int loyer) {
         super(nom);
+        this.nom=nom;
         this.prix = prix;
         this.loyer = loyer;
         this.proprietaire = null;
     }
     public ProprieterPublic(String nom, int prix) {
         super(nom);
+        this.nom=nom;
         this.prix = prix;
     }
 
@@ -30,7 +32,7 @@ public class ProprieterPublic extends Case{
 	public int getPrix() {
 		return prix;
 	}
-
+  
 	public void setPrix(int prix) {
 		this.prix = prix;
 	}
@@ -44,7 +46,10 @@ public class ProprieterPublic extends Case{
 	}
 	@Override
 	public String toString() {
-		return "ProprieterPublic [proprietaire=" + proprietaire + ", prix=" + prix + ", loyer=" + loyer + "]";
+		return "nom =" + nom +"\n";
+	}
+	public String Affiche() {
+		return "proprietaire=" + proprietaire + "\n ********\nprix=" + prix + "\nloyer=" + loyer+" *******";
 	}
 
 }
