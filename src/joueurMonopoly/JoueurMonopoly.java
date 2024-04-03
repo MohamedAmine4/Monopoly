@@ -1,12 +1,14 @@
 package joueurMonopoly;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
-import carte.Carte;
 
 import casePropreitaire.ProprieterPublic;
 import casePropreitaire.Terrain;
+import caseSansPropritaire.Chance;
 import plateau.Case;
 
 public class JoueurMonopoly {
@@ -17,20 +19,34 @@ public class JoueurMonopoly {
 	private ArrayList<Terrain> terrain =new ArrayList<>();
 	private ArrayList<ProprieterPublic> propriterPublic=new ArrayList<>();
 	private boolean OnPrison=false;
-	private ArrayList<Carte> carte=new ArrayList<>();
+	private ArrayList<String> carteChance=new ArrayList<>();
+	private ArrayList<String> carteCommunaute=new ArrayList<>();
 	private int nbToursEnPrison=0;
+	private ArrayList<String> reponseIA = new ArrayList<>(Arrays.asList("oui", "Non"));
 	private Scanner scanner =new Scanner(System.in);
 	public JoueurMonopoly(String nom) {
 		this.nom=nom;
 		this.Argent=200;
 	}
 
+	 public String ReponseIA() {
+	        Random random = new Random();
+	        int index = random.nextInt(reponseIA.size());
+	        return reponseIA.get(index);
+	    }
+	 
     public void AjouterPropriter(Case c , JoueurMonopoly j) {
     
     	if(c instanceof ProprieterPublic) {
     	if(j.getArgent()>=((ProprieterPublic) c).getPrix()) {
     		System.out.println("voulez vous Acheter cette Proprieter ? Avec un montant de "+((ProprieterPublic) c).getPrix()+" £ (Oui or Non)");
- 		   String res=scanner.nextLine().toLowerCase();
+    		String res;
+    		if (j.getNom().equals("IA")) {
+    		    res = ReponseIA();
+    		} else {
+    		    res = scanner.nextLine().toLowerCase();
+    		}
+
 		if(res.equals("oui")) {
     		j.getPropriterPublic().add((ProprieterPublic) c); //ajouter la propriter a la liste des propiter de joueur
 		    int prix=j.getArgent()-((ProprieterPublic) c).getPrix();
@@ -46,7 +62,13 @@ public class JoueurMonopoly {
     	else if(c instanceof Terrain) {
     		if(j.getArgent()>=((Terrain) c).getPrix()) {
     		System.out.println("voulez vous Acheter cette Proprieter ? Avec un montant de "+((Terrain) c).getPrix()+" £ (Oui or Non)");
- 		   String res=scanner.nextLine().toLowerCase();
+    		String res;
+    		if (j.getNom().equals("IA")) {
+    		    res = ReponseIA();
+    		} else {
+    		    res = scanner.nextLine().toLowerCase();
+    		}
+
     		if(res.equals("oui")) {
         		j.getTerrain().add((Terrain) c); //ajouter la propriter a la liste des propiter de joueur
     		    int prix=j.getArgent()-((Terrain) c).getPrix();
@@ -113,15 +135,22 @@ public void ajouterArgent(int r) {
 
 
 
-	public ArrayList<Carte> getCarte() {
-		return carte;
+
+	public ArrayList<String> getCarteChance() {
+		return carteChance;
 	}
 
-
-	public void setCarte(ArrayList<Carte> carte) {
-		this.carte = carte;
+	public void setCarteChance(ArrayList<String> carteChance) {
+		this.carteChance = carteChance;
 	}
 
+	public ArrayList<String> getCarteCommunaute() {
+		return carteCommunaute;
+	}
+
+	public void setCarteCommunaute(ArrayList<String> carteCommunaute) {
+		this.carteCommunaute = carteCommunaute;
+	}
 
 	public String getNom() {
 		return nom;
@@ -154,7 +183,7 @@ public void ajouterArgent(int r) {
 	@Override
 	public String toString() {
 		return "JoueurMonopoly [nom=" + nom + ", position=" + position + ", Argent=" + Argent + ", terrain=" +terrain
-				+ ", propriterPublic=" + propriterPublic + ", OnPrison=" + OnPrison + ", carte=" + carte
+				+ ", propriterPublic=" + propriterPublic + ", OnPrison=" + OnPrison
 				+ ", nbToursEnPrison=" + nbToursEnPrison + "]";
 	}
 	

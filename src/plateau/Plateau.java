@@ -2,9 +2,9 @@ package plateau;
 
 import java.util.ArrayList;
 
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 
 import casePropreitaire.ProprieterPublic;
 import casePropreitaire.Terrain;
@@ -23,6 +23,8 @@ public class Plateau {
 	private Case[] plateau;
 	private ArrayList<JoueurMonopoly> joueurs=new ArrayList<>();
 	private ArrayList<Case> cases =new ArrayList<>();
+	private Chance c =new Chance();
+	private Communaute d =new Communaute();
 	Scanner scanner = new Scanner(System.in);
 	public Plateau() {
 		plateau = new Case[NB_CASES];
@@ -82,7 +84,9 @@ public class Plateau {
 			nombreJoueur=scanner.nextInt();
 			scanner.nextLine();
 			
+			
 			for (int i = 1; i <= nombreJoueur; i++) {
+			
 			System.out.print("Nom du joueur " + i + " : ");
 			String nom = null;
 			boolean inputIsValid = false;
@@ -96,10 +100,11 @@ public class Plateau {
 					scanner.nextLine();
 				}
 			}
-
+           
 			joueurs.add(new JoueurMonopoly(nom));
 			
 		}
+			if(nombreJoueur==1) joueurs.add(new JoueurMonopoly("IA"));
 		jouer();
 
 	}
@@ -183,22 +188,20 @@ public void jouer() {
 				   JoueurMonopoly prorietaire =p.getPropritaire();
 				   prorietaire.ajouterArgent(loyer);
 				   System.out.println("Vous Avez verser un montant de "+loyer+" £ de loyer a "+prorietaire.getNom()+" votre solde Actuelle est "+j.getArgent());
-				   
-				   
-				   
-				   
-				   
-				   
-				   
-				   
-				   
+				    
 			   }
 			   else { 
 				  System.out.println("c votre proprieter !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				  if(p.getNbmaison()<=4 && p.getNbHotel()==0) {
 					  if(j.getArgent()>=p.getPrixMaison()) {  
 						  System.out.println("vous voulez construire une maison a ce terrain (Oui,Non) avec prix= "+p.getPrixMaison());
-					      String res=scanner.nextLine().toLowerCase();
+							String res;
+				    		if (j.getNom().equals("IA")) {
+				    		    res = j.ReponseIA();
+				    		} else {
+				    		    res = scanner.nextLine().toLowerCase();
+				    		}
+
 					      if(res.equals("oui")) {
 					    	  j.setArgent(j.getArgent()-p.getPrixMaison());
 					    	  int nbMaisonActuel= p.getNbmaison();
@@ -223,7 +226,12 @@ public void jouer() {
 					  if(j.getArgent()>=p.getPrixHotel() && p.getNbHotel()==0) {
 						  
 						  System.out.println("vous voulez construire un hotel a ce terrain (Oui,Non) avec prix= "+p.getPrixHotel());
-					      String res=scanner.nextLine().toLowerCase();
+						  String res;
+				    		if (j.getNom().equals("IA")) {
+				    		    res = j.ReponseIA();
+				    		} else {
+				    		    res = scanner.nextLine().toLowerCase();
+				    		}
 					      if(res.equals("oui")) {
 					    	  j.setArgent(j.getArgent()-p.getPrixHotel());
 					    	  p.setNbHotel(1);
@@ -240,19 +248,43 @@ public void jouer() {
 			   }
 			   
 		   }   else if ( ca instanceof AllerPrison) {
+			   if(j.getCarteChance().size()==0 && j.getCarteCommunaute().size()==0) {
 			   j.setOnPrison(true); 
 			  System.out.println(j.getNom()+" est partie a la prison");
 			  j.setPosition(10);
 		   }
+			   else if(j.getCarteChance().size()!=0) j.getCarteChance().remove(0);
+			   else  j.getCarteCommunaute().remove(0);
+				   
+			   }
 		   else if (ca instanceof Prison) {
-				   j.setOnPrison(true);
-				   System.out.println(j.getNom()+" est partie a la prison");
-					  j.setPosition(10);
+			   
+			   if(j.getCarteChance().size()==0 && j.getCarteCommunaute().size()==0) {
+				   j.setOnPrison(true); 
+				  System.out.println(j.getNom()+" est en prison");
+				  j.setPosition(10);
+			   }
+				   else if(j.getCarteChance().size()!=0) j.getCarteChance().remove(0);
+				   else  j.getCarteCommunaute().remove(0);
 					  
 		   }
 		   else if(ca instanceof Impot) {
 			   j.setArgent(j.getArgent()-200);
 		   }
+		   else if(ca instanceof Chance) {
+			   String carte=c.tirerCarte();
+			   System.out.println("Vous avez obtenu la carte chance :"+carte);
+			   Chance.Appliquercarte(j,carte);
+			   System.out.println("votre solde est "+j.getArgent());
+		   }
+		   else if(ca instanceof Communaute) {
+			   String carte=d.tirerCarteCommunite();
+			   System.out.println("Vous avez obtenu la carte Commauniter :"+carte);
+			   Communaute.AppliquerCarteCommunaute(j,carte);
+			   System.out.println("votre solde est "+j.getArgent());
+		   }
+		   else j.setArgent(j.getArgent()-150);
+		  
 		 
 		}
 	}
