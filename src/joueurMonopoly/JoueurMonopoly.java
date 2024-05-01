@@ -189,7 +189,7 @@ public void ajouterArgent(int r) {
 	
 	public String Afficher() {
 			return "nom=" + nom + " position=" + position + " Argent=" + Argent + "\n ********terrains******** \n" +terrain
-					+ "******** \n propriterPublic******** \n" + propriterPublic + "\n ********\n OnPrison=" + OnPrison
+					+ "********propriterPublic******** \n" + propriterPublic + "\n ********\n OnPrison=" + OnPrison
 					+ "\n nbToursEnPrison=" + nbToursEnPrison+"\n ********";
 		
 	}

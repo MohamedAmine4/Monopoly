@@ -6,7 +6,8 @@ public class AllerPrison  extends Case{
 
 	public AllerPrison() {
 		super("AllerPrison");
-		
+
+    
 	}
 
 }

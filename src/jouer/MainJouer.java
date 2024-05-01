@@ -7,7 +7,7 @@ import plateau.Plateau;
 
 public class MainJouer {
 
-	public static void main(String[] args) {
+	public static  void main(String[] args) {
 
 		Plateau r =new Plateau();
 		

@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "MainJouer",
+      "request": "launch",
+      "mainClass": "jouer.MainJouer",
+      "projectName": "monopolyL3"
+    },
+    {
+      "name": "Attach to Chrome",
+      "port": 9222,
+      "request": "attach",
+      "type": "chrome",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Launch",
+      "program": "${workspaceFolder}/<program>",
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

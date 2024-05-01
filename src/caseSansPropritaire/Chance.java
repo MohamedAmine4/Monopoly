@@ -86,7 +86,8 @@ public class Chance extends Case {
 		        	else j.getCarteChance().add(carte);
 		        	break;
 		        case "Allez en prison.Avancez directement à la prison. Ne passez pas par la case Départ.Ne recevez pas 200M.":
-		        	j.setPosition(30);
+		        	j.setPosition(10);
+		        	
 		        	break;
 		        case "Reculez de trois cases.":
 		            j.setPosition(j.getPosition()-3);
